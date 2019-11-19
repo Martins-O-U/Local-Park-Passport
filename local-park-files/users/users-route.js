@@ -54,7 +54,11 @@ router.get("/users", authenticate, (req, res) => {
 router.get("/users/:id", (req, res) => {
     db.findUsersById(req.params.id)
         .then(user => {
-            res.status(200).json(user)
+            if(user){
+                res.status(200).json(user)
+            }else{
+                res.json({message: `user with ID ${req.params.id} does not exist in the database`})
+            }
         })
         .catch(error => {
             res.status(500).json({message: "Something went wrong:-" + error.message })
