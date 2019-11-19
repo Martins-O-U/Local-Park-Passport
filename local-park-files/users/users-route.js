@@ -41,7 +41,7 @@ router.post("/login", (req, res) => {
 
 })
 
-router.get("/users", authenticate, (req, res) => {
+router.get("/users", (req, res) => {
   db.getUsers()
       .then(users => {
           res.status(200).json(users)
