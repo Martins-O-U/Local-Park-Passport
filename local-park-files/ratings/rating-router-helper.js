@@ -14,7 +14,7 @@ const findRatingById = id => {
     return db("rating")
     .join("parkList", "parkList.id", "rating.park_id")
     .where({park_id: id}).first()
-    .select('rating.id',"rating.rating", "rating.comment", "parkList.name", "parkList.description")
+    .select('rating.id',"rating.rating", "rating.comment", "parkList.park_name", "parkList.park_description")
 }
 
 const findRatingBy = filter => {
@@ -25,7 +25,7 @@ const getRating = () => {
     return db("rating")
     .join("usersList", "usersList.id", "rating.user_id")
     .join("parkList", "parkList.id", "rating.park_id")
-    .select('rating.id',"rating.rating", "rating.comment", "parkList.name", "parkList.description")
+    .select('rating.id',"rating.rating", "rating.comment", "parkList.park_name", "parkList.park_description")
 }
 
 const updateRating = (changed, id) => {

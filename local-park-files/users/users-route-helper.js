@@ -10,7 +10,7 @@ const addUsers = (user) => {
 
 const findUsersById = id => {
     return db("usersList")
-    .select('id', 'name', 'username', "email")
+    .select('id', 'fullname', 'username', "email")
     .where({id}).first();
 }
 
@@ -20,7 +20,7 @@ const findUsersBy = filter => {
 
 const getUsers = () => {
     return db("usersList")
-    .select('id', 'name', 'username', "email");
+    .select('id', 'fullname', 'username', "email");
 }
 
 const updateUser = (changed, id) => {
