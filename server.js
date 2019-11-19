@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const users = require('./local-park-files/users/users-route');
+const parks = require('./local-park-files/park/park-router')
 
 const server = express();
 
@@ -9,6 +10,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
+server.use('/api', parks)
 server.use('/api', users);
 
 server.get('/', (req, res)=>{
