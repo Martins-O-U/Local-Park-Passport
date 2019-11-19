@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const db = require('./users-route-helper')
 const bcrypt = require('bcryptjs')
-const {authenticate, generateToken} = require('./authenticators')
+const {authenticate, generateToken} = require('../Auth/authenticators')
 
 
 
