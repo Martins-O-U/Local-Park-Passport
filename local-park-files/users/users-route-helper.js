@@ -9,7 +9,9 @@ const addUsers = (user) => {
 }
 
 const findUsersById = id => {
-    return db("usersList").where({id}).first();
+    return db("usersList")
+    .select('id', 'name', 'username', "email")
+    .where({id}).first();
 }
 
 const findUsersBy = filter => {
@@ -17,7 +19,8 @@ const findUsersBy = filter => {
 }
 
 const getUsers = () => {
-    return db("usersList");
+    return db("usersList")
+    .select('id', 'name', 'username', "email");
 }
 
 const updateUser = (changed, id) => {

@@ -28,11 +28,24 @@ router.get("/parks/:id", (req, res) => {
         })
 })
 
+router.get("/parksByRating/:id", (req, res) => {
+    db.findParkBy(req.params.id)
+        .then(park => {
+            if(park){
+                res.status(200).json(park)
+            }else{
+                res.json({message: `Park with rating of ${req.params.id} does not exist in the database`})
+            }
+        })
+        .catch(error => {
+            res.status(500).json({message: "Something went wrong:-" + error.message })
+        })
+})
 
 router.post("/parks", authenticate, (req, res) => {
     let {name, description, city, country} = req.body;
     if(!name && !description && !city && !country){
-      res.json({message: "Please provide all needed columns (name, description, city and country"})
+      res.json({message: "Please provide all needed columns (name, description, city and country)"})
     }else{
       db.addPark(req.body)
       .then(saved => {
