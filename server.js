@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const users = require('./local-park-files/users/users-route');
 const parks = require('./local-park-files/park/park-router')
 const ratings = require('./local-park-files/ratings/rating-router')
+const links = require('./local-park-files/facilityLink/facilitylink-router')
 
 const server = express();
 
@@ -13,7 +14,8 @@ server.use(express.json());
 
 server.use('/api', ratings)
 server.use('/api', parks)
-server.use('/api', users);
+server.use('/api', users)
+server.use('/api', links)
 
 server.get('/', (req, res)=>{
     res.json({message: "Welcome to the default zone, please specify a path"})

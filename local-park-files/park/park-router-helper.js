@@ -1,11 +1,36 @@
 const db = require('../../database/db-config')
 
+
 const addPark = (user) => {
     return db("parkList").insert(user, "id")
         .then(ids => {
             const [id] = ids;
             return findParkById(id);
         })
+}
+
+
+const getDetailedPark = (id) =>{
+  
+    if (id) {
+        const promises = [findParkById(id), findLinkedFacility(id)];
+        return Promise.all(promises).then(function(results) {
+            let [park, facility] = results;
+            if (park) {
+                park.facility = facility;
+                return park;
+            } else {
+                return null;
+            }
+        });
+    }
+}
+
+const findLinkedFacility = id => {
+    return db('facilityLink')
+    .join('facility', "facility.id", "facilityLink.id")
+    .where({park_id: id})
+    .select("facilityLink.id", "facility.facility_name", "facility.description")
 }
 
 const findParkById = id => {
@@ -44,5 +69,6 @@ module.exports = {
     findParkBy,
     getParks,
     updatePark,
-    removePark
+    removePark,
+    getDetailedPark
 }

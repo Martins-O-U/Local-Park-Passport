@@ -15,7 +15,7 @@ router.get("/parks", (req, res) => {
 
 
 router.get("/parks/:id", (req, res) => {
-    db.findParkById(req.params.id)
+    db.getDetailedPark(req.params.id)
         .then(park => {
             if(park){
                 res.status(200).json(park)
