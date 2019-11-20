@@ -1,5 +1,6 @@
 const request = require('supertest')
 const server = require('./server')
+const db = require('./database/db-config')
 
 describe('[GET] / endpoint testing', () => {
 
@@ -30,38 +31,32 @@ describe("Park request", () => {
   })
 })
 
-// //Remember to change the username after each Post/register test,
-// //because in the database the username is unique thus cannot be used more than once
-
-// describe('POST /register', function() {
-//   it('responds with json', function(done) {
-//     request(server)
-//       .post('/api/register')
-//       .send({
-//         "fullname": "Jessi Doe",
-//         "password":"Anytime",
-//         "email":"jessi@email.com",
-//         "username":"Jessi"
-//       })
-//       .set('Accept', 'application/json')
-//       .expect('Content-Type', "application/json; charset=utf-8")
-//       .expect(201)
-//       .end(function(err, res) {
-//         if (err) return done(err);
-//         done();
-//       });
-//   });
-// });
-
+describe('POST /login', function() {
+  it('responds with json server Error', function(done) {
+    request(server)
+      .post('/api/login')
+      .send({
+        // "username": "Jessi",
+        "password":"unknown"
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', "application/json; charset=utf-8")
+      .expect(500)
+      .end(function(err) {
+        if (err) return done(err);
+        done();
+      });
+  });
+}); 
 
 describe('POST /parks', function() {
-  it('responds with an Error of Unathorization, poster must be signrd in', function(done) {
+  it('responds with an Error of Unathorization, poster must be signed in', function(done) {
     request(server)
       .post('/api/parks')
       .send({
         "park_name": "Shansu Park",
         "city":"tribella",
-        "country":"malasia",
+        "country":"indonasia",
         "park_description":"A place to be"
       })
       .set('Accept', 'application/json')
@@ -74,20 +69,28 @@ describe('POST /parks', function() {
   });
 });
 
-describe('POST /login', function() {
-  it('responds with json Error', function(done) {
-    request(server)
-      .post('/api/login')
-      .send({
-        "username": "Phil",
-        // "password":"Anytime"
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', "application/json; charset=utf-8")
-      .expect(500)
-      .end(function(err) {
-        if (err) return done(err);
-        done();
-      });
+describe("Clearing Test", () => {
+  beforeEach(async () => {
+      await db("usersList").truncate();
+  })
+  describe('POST /register', function() {
+    it('responds with json and 201 status', function(done) {
+      request(server)
+        .post('/api/register')
+        .send({
+          "fullname": "Jessi Doe",
+          "password":"Anytime",
+          "email":"jessi@email.com",
+          "username":"Jessi"
+        })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', "application/json; charset=utf-8")
+        .expect(201)
+        .end(function(err) {
+          if (err) return done(err);
+          done();
+        });
+    });
   });
-}); 
+})
+
