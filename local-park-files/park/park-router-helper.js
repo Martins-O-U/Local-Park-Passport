@@ -5,7 +5,7 @@ const addPark = (user) => {
     return db("parkList").insert(user, "id")
         .then(ids => {
             const [id] = ids;
-            return findParkById(id);
+            return findAddedPark(id);
         })
 }
 
@@ -31,6 +31,12 @@ const findLinkedFacility = id => {
     .join('facility', "facility.id", "facilityLink.id")
     .where({park_id: id})
     .select("facilityLink.id", "facility.facility_name", "facility.description")
+}
+
+const findAddedPark = (id)=>{
+    return db("parkList")
+    .where({id: id}).first()
+
 }
 
 const findParkById = id => {

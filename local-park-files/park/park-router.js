@@ -49,10 +49,10 @@ router.post("/parks", authenticate, (req, res) => {
     }else{
       db.addPark(req.body)
       .then(saved => {
-          res.status(201).json(saved)
+          res.status(201).json({saved})
       })
       .catch(error => {
-          res.status(500).json(error.message);
+          res.status(500).json({message: "something went wrong:-. " + error.message});
       })
     }
 })

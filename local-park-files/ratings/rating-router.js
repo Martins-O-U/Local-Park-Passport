@@ -30,12 +30,13 @@ router.get("/rating/:id", (req, res) => {
 })
 
 
-router.post("/rating", authenticate, (req, res) => {
-    let {rating, comment, park_id, user_id} = req.body;
-    if(!rating && !comment && !park_id && !user_id){
-      res.json({message: "Please provide all needed columns (rating, comment, park_id and user_id)"})
+router.post("/rating/:id", authenticate, (req, res) => {
+    let park_id = req.params.id 
+    let {rating, comment, user_id} = req.body;
+    if(!rating && !comment && !user_id){
+      res.json({message: "Please provide all needed columns (rating, comment and user_id)"})
     }else{
-      db.addRating(req.body)
+      db.addRating({rating, comment, user_id, park_id})
       .then(saved => {
           res.status(201).json(saved)
       })
