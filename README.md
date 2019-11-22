@@ -34,8 +34,8 @@ _POST Request /api/register_
 | ----------- | ------ | -------- | ------------------ |
 | fullname    | String | Yes      | User's name        |
 | username    | String | Yes      | users's login name |
-| Email       | String | Yes      | User's email       |
-| Password    | String | Yes      | User's password    |
+| email       | String | Yes      | User's email       |
+| password    | String | Yes      | User's password    |
 
 ### Response
 
@@ -73,8 +73,8 @@ _POST Request /api/login_
 
 | Name     | Type   | Required | Description        |
 | -------- | ------ | -------- | ------------------ |
-| Username | String | Yes      | users's login name |
-| Password | String | Yes      | User's password    |
+| username | String | Yes      | users's login name |
+| password | String | Yes      | User's password    |
 
 ### Response
 
@@ -163,7 +163,7 @@ _DELETE Request /api/users/:id_
 
 _Put Request /api/users/:id_
 
-user information can alsobe edited using the above link and method
+> user information can alsobe edited using the above link and method
 ---
 
 <a name="fetch-all"></a>
@@ -376,13 +376,15 @@ user must be "Authenticated" to post parks
 ```
 
 **400, Bad Request**
- The server will respond with an array indicatingthe required columns of any was omited.
- [
+ The server will respond with an array indicatingthe required columns if any was omited.
+ 
+```
+[
      {
          message: "Please provide all needed columns (rating, comment and user_id)"
      }
  ]
-
+```
 
 ---
 
@@ -390,7 +392,7 @@ user must be "Authenticated" to post parks
 
 <a name="add-facility"></a>
 
-## Approve A Story
+## Add A Facility
 
 _POST Request /api/links_
 
@@ -412,7 +414,6 @@ Available facilities are as below:
 
 | Name          | Type    | Required | Description    |
 | --------------| --------| -------- | ---------------|
-| park_id       | integer | Yes      | parsk's id     |
 | facility_id   | integer | Yes      | facilities' id |
 
 ### Response
@@ -429,7 +430,7 @@ Available facilities are as below:
 
 **400 Bad Request**
 
-> If you fail to input required coloumns or spelt the columns wrongly it will return a message that indicates invalid columns was passed.
+> If you fail to input required coloumn or spelt the column wrongly it will return a message that indicates invalid column was passed.
 
 ```
 {
