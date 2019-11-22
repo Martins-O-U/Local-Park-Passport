@@ -7,36 +7,42 @@ const {authenticate, generateToken} = require('../Auth/authenticators')
 
 router.post("/register", (req, res) => {
   let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 10);
-  user.password = hash;
-  db.addUsers(user)
-      .then(saved => {
-          res.status(201).json(saved)
-      })
-      .catch(error => {
-          res.status(500).json(error.message);
-      })
+  let {username, password, email, fullname} = req.body;
+    if(username && password && email && fullname){
+        const hash = bcrypt.hashSync(user.password, 10);
+        user.password = hash;
+        db.addUsers(user)
+            .then(saved => {
+                res.status(201).json(saved)
+            })
+            .catch(error => {
+                res.status(500).json(error.message);
+            })
+    }else{
+        res.status(400).json({message: "Please Provide needed columns (fullname, email, username and password)"})
+    }
 })
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
-  if(!username && !password){
-      res.status(400).json({message: "Please Provide username and password"})
-  }else{
-      db.findUsersBy({username}).first()
-      .then(user => {
-          if (user && bcrypt.compareSync(password, user.password)) {
-              const token = generateToken(user);
-              res.status(200).json({
-                  message:`Welcome, on board ${user.username}`, token
-              })
-          } else {
-              res.status(401).json({ message: "Invalid Credentials!" })
-          }
-      })
-      .catch(error => {
-          res.status(500).json({ message: "Oops!, Something went wrong:- "+ error.message});
-      })
+    if(username && password){
+        db.findUsersBy({username}).first()
+        .then(user => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json({
+                    message:`Welcome, on board ${user.username}`, token
+                })
+            } else {
+                res.status(401).json({ message: "Invalid Credentials!" })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ message: "Oops!, Something went wrong:- "+ error.message});
+        })
+    }else{
+        res.status(400).json({message: "Please Provide username and password"})
+
   }
 
 })

@@ -43,17 +43,17 @@ router.get("/parksByRating/:id", (req, res) => {
 })
 
 router.post("/parks", authenticate, (req, res) => {
-    let {name, description, city, country} = req.body;
-    if(!name && !description && !city && !country){
-      res.json({message: "Please provide all needed columns (name, description, city and country)"})
+    let {park_name, park_description, city, country} = req.body;
+    if(park_name && park_description && city && country){
+        db.addPark(req.body)
+        .then(saved => {
+            res.status(201).json(saved)
+        })
+        .catch(error => {
+            res.status(500).json({message: "something went wrong:-. " + error.message});
+        })
     }else{
-      db.addPark(req.body)
-      .then(saved => {
-          res.status(201).json({saved})
-      })
-      .catch(error => {
-          res.status(500).json({message: "something went wrong:-. " + error.message});
-      })
+      res.json({message: "Please provide all needed columns (park_name, park_description, city and country)"})
     }
 })
 

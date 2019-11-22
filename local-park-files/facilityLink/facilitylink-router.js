@@ -49,7 +49,7 @@ router.post("/links", authenticate, (req, res) => {
     }else{
       db.addLink(req.body)
       .then(saved => {
-          res.status(201).json(saved)
+          res.status(201).json({message: saved + "facility Added"})
       })
       .catch(error => {
           res.status(500).json(error.message);
