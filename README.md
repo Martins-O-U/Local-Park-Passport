@@ -40,7 +40,7 @@ _POST Request /api/register_
 ### Response
 
 ***201, Created***
-Server will respond with the added input information along with the user ID:
+> Server will respond with the added input information along with the user ID:
 
 ```
 {
@@ -52,7 +52,7 @@ Server will respond with the added input information along with the user ID:
 ```
 
 ***400, Bad Request***
-Server returns a 400 status when a required column is missing in the given information:
+> Server returns a 400 status when a required column is missing in the given information:
 
 ```
 {
@@ -268,7 +268,7 @@ _GET Request /api/parksByRating/:id_
 
 _POST Request /api/parks_
 
-user must be "Authenticated" to post parks
+> user must be "Authenticated" to post parks
 
 ### Body
 
@@ -350,7 +350,7 @@ _PUT Request /api/parks/:id_
 
 _POST Request /api/rating/:id_
 
-user must be "Authenticated" to post parks
+> user must be "Authenticated" to post parks
 
 ### Body
 
@@ -376,7 +376,7 @@ user must be "Authenticated" to post parks
 ```
 
 **400, Bad Request**
- The server will respond with an array indicatingthe required columns if any was omited.
+ > The server will respond with an array indicatingthe required columns if any was omited.
  
 ```
 [
