@@ -55,8 +55,6 @@ const findParkBy = filter => {
 
 const getParks = () => {
     return db("parkList")
-    .join("rating", "parkList.id", "rating.park_id")
-    .select("parkList.id", "parkList.park_name", "parkList.park_description", "rating.rating", "rating.comment", )
 }
 
 const updatePark = (changed, id) => {
