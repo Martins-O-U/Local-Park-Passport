@@ -38,7 +38,7 @@ router.post("/rating/:id", authenticate, (req, res) => {
     }else{
       db.addRating({rating, comment, user_id, park_id})
       .then(saved => {
-          res.status(201).json({message: saved + "Add facilities"})
+          res.status(201).json({message: saved.length +" Park got rated, Please Add facilities too"})
       })
       .catch(error => {
           res.status(500).json(error.message);

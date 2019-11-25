@@ -42,14 +42,15 @@ router.get("/linked/:id", (req, res) => {
         })
 })
 
-router.post("/links", authenticate, (req, res) => {
-    let {park_id, facility_id} = req.body;
-    if(!park_id && !facility_id){
+router.post("/links/:id", authenticate, (req, res) => {
+    let park_id = req.params.id
+    let {facility_id} = req.body;
+    if(!facility_id){
       res.json({message: "Please provide all needed columns (park_id && facility_id)"})
     }else{
-      db.addLink(req.body)
+      db.addLink({facility_id, park_id})
       .then(saved => {
-          res.status(201).json({message: saved + "facility Added"})
+          res.status(201).json({message: saved.length + " facility Added"})
       })
       .catch(error => {
           res.status(500).json(error.message);
