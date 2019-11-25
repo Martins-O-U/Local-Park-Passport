@@ -4,9 +4,8 @@ const db = require('../../database/db-config')
 
 const addRating = (user) => {
     return db("rating").insert(user, "id")
-        .then(ids => {
-            const [id] = ids;
-            return findRatingById(id);
+        .then(rated => {
+            return rated;
         })
 }
 

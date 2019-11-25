@@ -1,5 +1,5 @@
 # Local Park Passport
-Local Park Passport is the definitive guide for find this best parks in your area depending on what your tastes are, the App allows you add parks with descriptions or search for parks based on rating.
+Local Park Passport is the definitive guide for finding the best parks in your area depending on what your tastes are, the App allows you search for parks based on rating. Andasa registered user to add parks with descriptions.
 
 #### Public Endpoints
 
