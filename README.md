@@ -394,7 +394,7 @@ _POST Request /api/rating/:id_
 
 ## Add A Facility
 
-_POST Request /api/links_
+_POST Request /api/links/:id_
 
 Available facilities are as below:
 
@@ -434,7 +434,7 @@ Available facilities are as below:
 
 ```
 {
-    message: "Please provide all needed columns (park_id && facility_id)"
+    message: "Please provide all needed column (facility_id)"
 }
 ```
 
