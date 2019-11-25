@@ -370,7 +370,7 @@ _POST Request /api/rating/:id_
 ```
 [
     {
-        message: add facilities
+        message:  "1 Park got rated, Please Add facilities too"
     }
 ]
 ```
@@ -424,7 +424,7 @@ Available facilities are as below:
 
 ```
 {
-    message: "Facility added"
+    message: " 1 Facility added"
 }
 ```
 
